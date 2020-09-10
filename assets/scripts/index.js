@@ -1,7 +1,7 @@
 "use strict";
 
-// const header = document.createElement('h1');
 document.body.prepend(document.createElement("h1"));
+
 class Elem {
   constructor(selector) {
     if (!document.querySelector(selector)) {
@@ -26,8 +26,8 @@ class Elem {
     return this;
   }
 
-  prepend(includText) {
-    this.element.textContent += includText;
+  prepend(...args) {
+    this.element.textContent += args.join("");
 
     return this;
   }
@@ -40,12 +40,9 @@ class Elem {
 }
 
 const elem = new Elem("h1");
-elem.html("JS DOM 2.0");
 
-elem.append("aslka");
-
-// elem
-//   .html("JS DOM 2.0")
-//   .append("I complete ")
-//   .prepend(": 4 Task!")
-//   .attr("class", "www");
+elem
+  .html("JS DOM 2.0")
+  .append("I complete ")
+  .prepend(": 4 Task!")
+  .attr("class", "www");
