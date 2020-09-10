@@ -8,15 +8,27 @@ const limitationForOutput = document.createElement('input');
 const submitBtn = document.createElement('button');
 const clearBtn = document.createElement('button');
 
-const textForInput = document.createElement('span');
-const textForOutput = document.createElement('span');
-const textForLimitationInput = document.createElement('span');
+const labelForInput = document.createElement('label');
+const labelForOutput = document.createElement('label');
+const labelForlimitation = document.createElement('label');
+
+
 
 input.type = 'number';
+output.readOnly = true;
 
-textForInput.textContent = 'Enter radius:';
-textForOutput.textContent = 'Ball volume:';
-textForLimitationInput.textContent = 'Precision:';
+input.setAttribute('id', 'input');
+output.setAttribute('id', 'output');
+limitationForOutput.setAttribute('id', 'limitationForOutput');
+
+labelForInput.textContent = 'Enter radius:';
+labelForOutput.textContent = 'Ball volume:';
+labelForlimitation.textContent = 'Precision:';
+
+labelForInput.setAttribute('for', input.id);
+labelForOutput.setAttribute('for', output.id);
+labelForlimitation.setAttribute('for', limitationForOutput.id);
+labelForlimitation.for = '#limitationForOutput';
 
 clearBtn.textContent = 'Clear';
 clearBtn.type = 'reset';
@@ -36,22 +48,22 @@ limitationForOutput.classList.add('limitInputStyle');
 submitBtn.classList.add('culculateButtonStyle');
 clearBtn.classList.add('clearButtonStyle');
 
-textForInput.classList.add('textStyle');
-textForOutput.classList.add('textStyle');;
-textForLimitationInput.classList.add('textStyle');;
-
+labelForInput.classList.add('textStyle');
+labelForOutput.classList.add('textStyle');
+labelForlimitation.classList.add('textStyle');
 
 
 document.body.prepend(div);
 
 div.appendChild(form);
 
-form.appendChild(textForInput);
+form.appendChild(labelForInput);
 form.appendChild(input);
 
-form.appendChild(textForOutput);
+form.appendChild(labelForOutput);
 form.appendChild(output);
-form.appendChild(textForLimitationInput)
+
+form.appendChild(labelForlimitation);
 form.appendChild(limitationForOutput);
 
 form.appendChild(submitBtn);

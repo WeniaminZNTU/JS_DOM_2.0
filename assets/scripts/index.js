@@ -10,8 +10,14 @@ submitBtn.addEventListener('click', function onClickBtnHandler(event){
     const precision = limitationForOutput.valueAsNumber;
 
     const outputVolumeBall = ballVolume(inputRadius, precision);
-    
-    output.value = outputVolumeBall;
+    if(outputVolumeBall){
+        output.value = outputVolumeBall;
+    }
+    else if(Number.isNaN(outputVolumeBall)){
+        console.log(typeof(outputVolumeBall));
+        output.value = '';
+    }
+    console.log(typeof(outputVolumeBall), outputVolumeBall);
 });
 
 
