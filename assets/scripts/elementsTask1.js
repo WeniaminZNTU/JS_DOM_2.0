@@ -14,7 +14,6 @@ const labelForlimitation = document.createElement('label');
 
 
 
-input.type = 'number';
 output.readOnly = true;
 
 input.setAttribute('id', 'input');
@@ -28,7 +27,6 @@ labelForlimitation.textContent = 'Precision:';
 labelForInput.setAttribute('for', input.id);
 labelForOutput.setAttribute('for', output.id);
 labelForlimitation.setAttribute('for', limitationForOutput.id);
-labelForlimitation.for = '#limitationForOutput';
 
 clearBtn.textContent = 'Clear';
 clearBtn.type = 'reset';
@@ -68,3 +66,6 @@ form.appendChild(limitationForOutput);
 
 form.appendChild(submitBtn);
 form.appendChild(clearBtn);
+
+
+export {input, output, submitBtn, clearBtn, limitationForOutput};

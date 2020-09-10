@@ -1,30 +1,48 @@
 "use strict";
 
-
+// Task 1
+import {input, output, submitBtn, clearBtn, limitationForOutput} from './elementsTask1.js';
 
 submitBtn.addEventListener('click', function onClickBtnHandler(event){
     event.preventDefault();
     event.stopPropagation();
-
-    const inputRadius = input.valueAsNumber;
+    debugger;
+    const inputRadius = input.value;
     const precision = limitationForOutput.valueAsNumber;
 
+    if(inputRadius.toString().indexOf('.') === (inputRadius.toString().length - 1)){
+        input.value = Number(inputRadius.toString().slice(0, (inputRadius.toString().length - 1)));
+    }
+
     const outputVolumeBall = ballVolume(inputRadius, precision);
+
+    if(inputRadius === '0'){
+        output.value = '0';
+    }
     if(outputVolumeBall){
         output.value = outputVolumeBall;
     }
     else if(Number.isNaN(outputVolumeBall)){
-        console.log(typeof(outputVolumeBall));
         output.value = '';
     }
-    console.log(typeof(outputVolumeBall), outputVolumeBall);
+});
+
+limitationForOutput.addEventListener('change', (event)=>{
+    if(event.currentTarget.valueAsNumber < 0){
+        event.currentTarget.valueAsNumber = 0;
+    }
+})
+
+clearBtn.addEventListener('click', (event)=>{
+    const {currentTarget:{parentElement}} = event;
+    parentElement.reset(); //form.reset()
 });
 
 
 
 function ballVolume(...args){
     let [radius, accuracy] = args;
-    
+
     radius = Math.pow(radius, 3);
     radius = radius * Math.PI;
     
@@ -33,15 +51,11 @@ function ballVolume(...args){
     const volume = radius + oneThird;
 
     return round(volume, accuracy);
-}
+};
 
 
 function round(...args){
     let [number, accuracy] = args;
+    return +number.toString().slice(0, (number.toString().indexOf('.') + accuracy + 1));
+};
 
-    if(!number.toString().includes('.')){
-      return number;
-    }
-
-  return +number.toString().slice(0, (number.toString().indexOf('.') + accuracy + 1));
-}
