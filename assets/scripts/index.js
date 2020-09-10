@@ -58,4 +58,18 @@ function round(...args){
     let [number, accuracy] = args;
     return +number.toString().slice(0, (number.toString().indexOf('.') + accuracy + 1));
 };
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Task 2
+import {divElem} from './elementsTask2.js'
+
+divElem.classList.add('www');
+divElem.classList.remove('www');
+
+if(divElem.classList.contains('www')){
+    divElem.classList.remove('www');
+}
+else{
+    divElem.classList.add('www');
+}
 
