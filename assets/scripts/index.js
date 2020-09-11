@@ -1,7 +1,11 @@
 "use strict";
-// Task 1
-import {input, output, submitBtn, clearBtn, limitationForOutput} from './elementsTask1.js';
 
+import {input, output, submitBtn, clearBtn, limitationForOutput} from './elementsTask1.js';
+import {divElem} from './elementsTask2.js';
+import {arrRenderElements, list} from './elementsTask3.js';
+import {randomColorInHex} from './features.js';
+
+// Task 1
 submitBtn.addEventListener('click', function onClickBtnHandler(event){
     event.preventDefault();
     event.stopPropagation();
@@ -13,7 +17,7 @@ submitBtn.addEventListener('click', function onClickBtnHandler(event){
         input.value = Number(inputRadius.toString().slice(0, (inputRadius.toString().length - 1)));
     }
 
-    const outputVolumeBall = ballVolume(inputRadius, precision);
+    const outputVolumeBall = ballVolume({inputRadius, precision});
 
     if(Number(inputRadius) === 0){
         input.value = '0';
@@ -31,9 +35,9 @@ submitBtn.addEventListener('click', function onClickBtnHandler(event){
     }
 });
 
-limitationForOutput.addEventListener('change', (event)=>{
+limitationForOutput.addEventListener('input', (event)=>{
     if(event.currentTarget.valueAsNumber < 0){
-        event.currentTarget.valueAsNumber = 0;
+        event.currentTarget.value = 0;
     }
 })
 
@@ -44,61 +48,75 @@ clearBtn.addEventListener('click', (event)=>{
 
 
 
-function ballVolume(...args){
-    let [radius, accuracy] = args;
-
-    if(radius.indexOf(0) === ''){
+function ballVolume({inputRadius, precision}){
+    console.log(inputRadius);
+    if(inputRadius.indexOf(0) === ''){
         return '';
     }
-    if(radius.indexOf(0) === '0'){
+    if(inputRadius.indexOf(0) === '0'){
         return '0';
     }
 
 
-    radius = Math.pow(radius, 3);
-    radius = radius * Math.PI;
+    inputRadius = Math.pow(inputRadius, 3);
+    inputRadius = inputRadius * Math.PI;
     
-    const oneThird = radius / 3;
+    const oneThird = inputRadius / 3;
 
-    const volume = radius + oneThird;
+    const volume = inputRadius + oneThird;
 
-    return round(volume, accuracy);
+    return round({volume, precision});
 };
 
 
-function round(...args){
-    let [number, accuracy] = args;
-    return +number.toString().slice(0, (number.toString().indexOf('.') + accuracy + 1));
+function round({volume, precision}){
+    return volume.toString().slice(0, (volume.toString().indexOf('.') + precision + 1));
 };
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Task 2
-import {divElem} from './elementsTask2.js'
+const selector = 'primitiveSelector';
 
-divElem.classList.add('primitiveSelector');
-divElem.classList.remove('primitiveSelector');
+addClass(divElem, selector);
+deleteClass(divElem, selector);
 
-if(divElem.classList.contains('primitiveSelector')){
-    divElem.classList.remove('primitiveSelector');
+toggleClassAttr(divElem, selector);
+toggleClassAttr(divElem, selector);
+toggleClassAttr(divElem, selector);
+
+
+function addClass(...args){
+  if(typeof(args[1]) !== 'string'){
+    throw new TypeError('class name must be a string');
+  }
+
+  args[0].classList.add(args[1]);
 }
-else{
-    divElem.classList.add('primitiveSelector');
+
+function deleteClass(...args){
+  if(typeof(args[1]) !== 'string'){
+    throw new TypeError('class name must be a string');
+  }
+
+  args[0].classList.remove(args[1]);
+}
+
+function toggleClassAttr(...args){
+  if(typeof(args[1]) !== 'string'){
+    throw new TypeError('class name must be a string');
+  }
+
+  args[0].classList.toggle(args[1]);
 }
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Task 3
-import {arrRenderElements, list} from './elementsTask3.js';
-
-const idWord = "id: ";
-const titleWord = ", title: ";
-const descriptionWord = ", description: ";
-
 document.body.appendChild(list);
 
 for (let i = 0; i < arrRenderElements.length; i++) {
   let { id, title, description } = arrRenderElements[i];
 
-  const textValue = idWord + id + titleWord + title + descriptionWord + description + ' ';
+  const textValue = `id: ${id}, title: ${title}, description: ${description} `;
 
   const li = createListItem({
       value: textValue,
@@ -150,36 +168,6 @@ function clickOnLiHandler(event){
     const {currentTarget:{style}} = event;
     style.color = randomColorInHex();
 }
-
-function randomColorInHex(amountNumbers=6) {
-  let arr = [];
-
-  for(let i = 0; i < amountNumbers; i++){
-    arr[i] = Math.floor(Math.random() * Math.floor(16));
-
-  switch (arr[i]) {
-    case 10: {
-      arr[i] = 'A';
-    }
-    case 11: {
-      arr[i] = "B";
-    }
-    case 12: {
-      arr[i] = "C";
-    }
-    case 13: {
-      arr[i] = "D";
-    }
-    case 14: {
-      arr[i] = "E";
-    }
-    case 15: {
-      arr[i] = "F";
-    }
-  }
-}
-  return '#' + arr.join('');
-}
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Task 4
@@ -187,11 +175,11 @@ document.body.prepend(document.createElement("h1"));
 
 class Elem {
   constructor(selector) {
-    if (!document.querySelector(selector)) {
+    this.element = document.querySelector(selector);
+
+    if (!this.element) {
       throw new TypeError("Selector must be an HTML element selector");
     }
-
-    this.element = document.querySelector(selector);
   }
 
   html(newTextContent) {
@@ -200,23 +188,23 @@ class Elem {
     return this;
   }
 
-  append(...args) {
-    let { element } = this;
+  append(appendText) {
+    const { element } = this;
 
-    args += element.textContent;
-    element.textContent = args;
-
-    return this;
-  }
-
-  prepend(...args) {
-    this.element.textContent += args.join("");
+    appendText += element.textContent;
+    element.textContent = appendText;
 
     return this;
   }
 
-  attr(...args) {
-    this.element.setAttribute(args[0], args[1]);
+  prepend(prependText) {
+    this.element.textContent += prependText;
+
+    return this;
+  }
+
+  attr(attrName, attrValue) {
+    this.element.setAttribute(attrName, attrValue);
 
     return this;
   }

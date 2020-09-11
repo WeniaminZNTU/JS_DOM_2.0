@@ -1,7 +1,6 @@
 'use strict';
 
-const arrRenderElements = [];
-const arrLiElements = [];
+const arrRenderElements = new Array(100);
 const list = document.createElement('ul');
 
 for(let i = 0; i < 100; i++){
@@ -10,11 +9,6 @@ for(let i = 0; i < 100; i++){
         title: `Element number ${i}`,
         description: 'I exist (◕◡◕)',
     }
-}
-
-
-for(let i = 0; i < arrRenderElements.length; i++){
-    arrLiElements[i] = document.createElement('li');
 }
 
 export {arrRenderElements, list};
