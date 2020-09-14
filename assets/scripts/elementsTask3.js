@@ -1,7 +1,6 @@
 'use strict';
 
 const arrRenderElements = new Array(100);
-const list = document.createElement('ul');
 
 for(let i = 0; i < 100; i++){
     arrRenderElements[i] = {
@@ -11,4 +10,4 @@ for(let i = 0; i < 100; i++){
     }
 }
 
-export {arrRenderElements, list};
+export {arrRenderElements};

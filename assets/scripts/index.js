@@ -2,7 +2,7 @@
 
 import {input, output, submitBtn, clearBtn, limitationForOutput} from './elementsTask1.js';
 import {divElem} from './elementsTask2.js';
-import {arrRenderElements, list} from './elementsTask3.js';
+import {arrRenderElements} from './elementsTask3.js';
 import {randomColorInHex} from './features.js';
 
 // Task 1
@@ -85,32 +85,42 @@ toggleClassAttr(divElem, selector);
 toggleClassAttr(divElem, selector);
 
 
-function addClass(...args){
-  if(typeof(args[1]) !== 'string'){
+function addClass(elem, className){
+  if(!elem){
+    throw new ReferenceError('Elem is not defined');
+  }
+  if(typeof(className) !== 'string'){
     throw new TypeError('class name must be a string');
   }
 
-  args[0].classList.add(args[1]);
+  elem.classList.add(className);
 }
 
-function deleteClass(...args){
-  if(typeof(args[1]) !== 'string'){
+function deleteClass(elem, className){
+  if(!elem){
+    throw new ReferenceError('Elem is not defined');
+  }
+  if(typeof(className) !== 'string'){
     throw new TypeError('class name must be a string');
   }
 
-  args[0].classList.remove(args[1]);
+  elem.classList.remove(className);
 }
 
-function toggleClassAttr(...args){
-  if(typeof(args[1]) !== 'string'){
+function toggleClassAttr(elem, className){
+  if(!elem){
+    throw new ReferenceError('Elem is not defined');
+  }
+  if(typeof(className) !== 'string'){
     throw new TypeError('class name must be a string');
   }
 
-  args[0].classList.toggle(args[1]);
+  elem.classList.toggle(className);
 }
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Task 3
+const list = document.createElement('ul');
 document.body.appendChild(list);
 
 for (let i = 0; i < arrRenderElements.length; i++) {

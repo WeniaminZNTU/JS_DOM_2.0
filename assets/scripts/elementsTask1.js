@@ -55,17 +55,10 @@ document.body.prepend(div);
 
 div.appendChild(form);
 
-form.appendChild(labelForInput);
-form.appendChild(input);
-
-form.appendChild(labelForOutput);
-form.appendChild(output);
-
-form.appendChild(labelForlimitation);
-form.appendChild(limitationForOutput);
-
-form.appendChild(submitBtn);
-form.appendChild(clearBtn);
-
+form.append(
+    labelForInput, input,
+    labelForOutput, output,
+    labelForlimitation, limitationForOutput,
+    submitBtn, clearBtn);
 
 export {input, output, submitBtn, clearBtn, limitationForOutput};
