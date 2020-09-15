@@ -1,8 +1,10 @@
 'use strict';
 
-const arrRenderElements = new Array(100);
+const AMOUNT_RENDER_ELEMENTS = 100;
 
-for(let i = 0; i < 100; i++){
+const arrRenderElements = new Array(AMOUNT_RENDER_ELEMENTS);
+
+for(let i = 0; i < AMOUNT_RENDER_ELEMENTS; i++){
     arrRenderElements[i] = {
         id: i,
         title: `Element number ${i}`,

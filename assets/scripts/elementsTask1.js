@@ -16,17 +16,9 @@ const labelForlimitation = document.createElement('label');
 
 output.readOnly = true;
 
-input.setAttribute('id', 'input');
-output.setAttribute('id', 'output');
-limitationForOutput.setAttribute('id', 'limitationForOutput');
-
 labelForInput.textContent = 'Enter radius:';
 labelForOutput.textContent = 'Ball volume:';
 labelForlimitation.textContent = 'Precision:';
-
-labelForInput.setAttribute('for', input.id);
-labelForOutput.setAttribute('for', output.id);
-labelForlimitation.setAttribute('for', limitationForOutput.id);
 
 clearBtn.textContent = 'Clear';
 clearBtn.type = 'reset';
@@ -55,10 +47,14 @@ document.body.prepend(div);
 
 div.appendChild(form);
 
+labelForInput.append(input);
+
+labelForOutput.append(output);
+
+labelForlimitation.append(limitationForOutput);
+
 form.append(
-    labelForInput, input,
-    labelForOutput, output,
-    labelForlimitation, limitationForOutput,
-    submitBtn, clearBtn);
+    labelForInput, labelForOutput,
+    labelForlimitation, submitBtn, clearBtn);
 
 export {input, output, submitBtn, clearBtn, limitationForOutput};
